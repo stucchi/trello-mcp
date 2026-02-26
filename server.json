@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.stucchi/trello",
+  "title": "Trello MCP Server",
+  "description": "MCP server for the Trello REST API – manage boards, lists, cards, labels, checklists and more",
+  "repository": {
+    "url": "https://github.com/stucchi/trello-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/stucchi/trello-mcp/main/assets/icon.png",
+      "mimeType": "image/png",
+      "sizes": ["1024x1024"]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "trello-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TRELLO_API_KEY",
+          "description": "API key from Trello Power-Up admin (https://trello.com/power-ups/admin)",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "TRELLO_TOKEN",
+          "description": "User token generated for your Trello API key",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

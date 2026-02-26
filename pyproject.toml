@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trello-mcp"
+version = "1.0.0"
+description = "MCP server for Trello – manage boards, lists, cards, labels, checklists and more"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Lucas Tucchi", email = "lucas@stucchi.consulting" }]
+keywords = ["mcp", "trello", "project-management", "kanban"]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "httpx",
+    "mcp[cli]>=1.26.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-httpx",
+]
+
+[project.urls]
+Homepage = "https://github.com/stucchi/trello-mcp"
+Repository = "https://github.com/stucchi/trello-mcp"
+Issues = "https://github.com/stucchi/trello-mcp/issues"
+
+[project.scripts]
+trello-mcp = "trello_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
