@@ -121,3 +121,31 @@ async def move_card(card_id: str, list_id: str, board_id: str | None = None) -> 
 async def archive_card(card_id: str) -> dict[str, Any]:
     """Archive (close) a card."""
     return await update_card(card_id, closed=True)
+
+
+def _format_comment(action: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": action["id"],
+        "text": action.get("data", {}).get("text", ""),
+        "date": action.get("date", ""),
+        "member": action.get("memberCreator", {}).get("fullName", ""),
+        "username": action.get("memberCreator", {}).get("username", ""),
+    }
+
+
+async def get_card_comments(card_id: str) -> list[dict[str, Any]]:
+    """Return all comments on a card."""
+    client = TrelloClient()
+    actions = await client.get(
+        f"/cards/{card_id}/actions", params={"filter": "commentCard"}
+    )
+    return [_format_comment(a) for a in actions]
+
+
+async def add_card_comment(card_id: str, text: str) -> dict[str, Any]:
+    """Add a comment to a card."""
+    client = TrelloClient()
+    action = await client.post(
+        f"/cards/{card_id}/actions/comments", params={"text": text}
+    )
+    return _format_comment(action)

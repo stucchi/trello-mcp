@@ -203,6 +203,31 @@ async def archive_card(
         return _error(exc)
 
 
+@mcp.tool()
+async def get_card_comments(
+    card_id: Annotated[str, "The ID of the card"],
+) -> types.CallToolResult:
+    """Get all comments on a Trello card."""
+    try:
+        result = await cards.get_card_comments(card_id)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
+async def add_card_comment(
+    card_id: Annotated[str, "The ID of the card"],
+    text: Annotated[str, "The comment text"],
+) -> types.CallToolResult:
+    """Add a comment to a Trello card."""
+    try:
+        result = await cards.add_card_comment(card_id, text)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
 # ── Labels ───────────────────────────────────────────────────────────────────
 
 
