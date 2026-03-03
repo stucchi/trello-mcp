@@ -88,6 +88,20 @@ class TrelloClient:
             )
             return self._handle_response(resp)
 
+    async def post_multipart(
+        self,
+        endpoint: str,
+        params: dict[str, Any] | None = None,
+        files: dict[str, Any] | None = None,
+    ) -> Any:
+        async with httpx.AsyncClient(timeout=60.0) as http:
+            resp = await http.post(
+                self._url(endpoint),
+                params=self._merge_params(params),
+                files=files,
+            )
+            return self._handle_response(resp)
+
     async def delete(
         self, endpoint: str, params: dict[str, Any] | None = None
     ) -> Any:

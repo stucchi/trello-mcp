@@ -24,6 +24,10 @@ An MCP server for the Trello REST API. Manage boards, lists, cards, labels, chec
 | `archive_card` | Archive (close) a card |
 | `get_card_comments` | Get all comments on a card |
 | `add_card_comment` | Add a comment to a card |
+| `get_card_attachments` | Get all attachments on a card |
+| `add_card_attachment` | Upload a file as an attachment to a card |
+| `add_card_url_attachment` | Attach a URL to a card |
+| `delete_card_attachment` | Delete an attachment from a card |
 | `get_board_labels` | Get all labels on a board |
 | `create_label` | Create a label on a board |
 | `get_checklist` | Get a checklist and its items |

@@ -7,7 +7,7 @@
     "url": "https://github.com/stucchi/trello-mcp",
     "source": "github"
   },
-  "version": "1.1.1",
+  "version": "1.2.0",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/stucchi/trello-mcp/main/assets/icon.png",
@@ -19,7 +19,7 @@
     {
       "registryType": "pypi",
       "identifier": "trello-mcp",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "transport": {
         "type": "stdio"
       },

@@ -5,7 +5,7 @@ from mcp import types
 from mcp.server.fastmcp import FastMCP
 
 from trello_mcp.exceptions import TrelloError
-from trello_mcp.tools import boards, cards, checklists, labels, lists, members, search
+from trello_mcp.tools import attachments, boards, cards, checklists, labels, lists, members, search
 
 mcp = FastMCP("trello")
 
@@ -223,6 +223,62 @@ async def add_card_comment(
     """Add a comment to a Trello card."""
     try:
         result = await cards.add_card_comment(card_id, text)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+# ── Attachments ─────────────────────────────────────────────────────────────
+
+
+@mcp.tool()
+async def get_card_attachments(
+    card_id: Annotated[str, "The ID of the card"],
+) -> types.CallToolResult:
+    """Get all attachments on a Trello card."""
+    try:
+        result = await attachments.get_card_attachments(card_id)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
+async def add_card_attachment(
+    card_id: Annotated[str, "The ID of the card"],
+    file_path: Annotated[str, "Absolute path to the file to upload"],
+    name: Annotated[str | None, "Display name for the attachment (defaults to filename)"] = None,
+) -> types.CallToolResult:
+    """Upload a file as an attachment to a Trello card."""
+    try:
+        result = await attachments.add_card_attachment(card_id, file_path, name)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
+async def add_card_url_attachment(
+    card_id: Annotated[str, "The ID of the card"],
+    url: Annotated[str, "The URL to attach"],
+    name: Annotated[str | None, "Display name for the attachment"] = None,
+) -> types.CallToolResult:
+    """Attach a URL to a Trello card."""
+    try:
+        result = await attachments.add_card_url_attachment(card_id, url, name)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
+async def delete_card_attachment(
+    card_id: Annotated[str, "The ID of the card"],
+    attachment_id: Annotated[str, "The ID of the attachment to delete"],
+) -> types.CallToolResult:
+    """Delete an attachment from a Trello card."""
+    try:
+        result = await attachments.delete_card_attachment(card_id, attachment_id)
         return _ok(result)
     except TrelloError as exc:
         return _error(exc)
