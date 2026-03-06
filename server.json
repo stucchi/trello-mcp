@@ -1,16 +1,16 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.stucchi/trello",
+  "name": "io.github.synapse-ai-hub/trello-mcp",
   "title": "Trello MCP Server",
   "description": "MCP server for the Trello REST API – manage boards, lists, cards, labels, checklists and more",
   "repository": {
-    "url": "https://github.com/stucchi/trello-mcp",
+    "url": "https://github.com/synapse-ai-hub/trello-mcp",
     "source": "github"
   },
   "version": "1.2.0",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/stucchi/trello-mcp/main/assets/icon.png",
+      "src": "https://raw.githubusercontent.com/synapse-ai-hub/trello-mcp/main/src/LogoBlancoGrande2.png",
       "mimeType": "image/png",
       "sizes": ["1024x1024"]
     }
