@@ -221,4 +221,4 @@ Este proyecto está bajo la licencia [MIT](./LICENSE).
 
 ## Sobre este repositorio
 
-Mantenido por [Synapse](https://github.com/synapse-ai-hub). 
+Mantenido por [synapse.ai](https://github.com/synapse-ai-hub). 
