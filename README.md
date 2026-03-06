@@ -79,27 +79,28 @@ Ideal para equipos que usan Trello y quieren integrarlo con asistentes (por ejem
 
 ## Instalación
 
-Con **uv** (recomendado):
+**Con pip** (desde GitHub):
 
 ```bash
-uvx trello-mcp
+pip install "git+https://github.com/synapse-ai-hub/trello-mcp.git"
 ```
 
-O con **pip**:
+**Con uv**:
 
 ```bash
-pip install trello-mcp
+uv pip install "git+https://github.com/synapse-ai-hub/trello-mcp.git"
 ```
 
-Para instalar desde este repositorio (versión en desarrollo):
+**Desarrollo** (clone y dependencias en modo editable):
 
 ```bash
 git clone https://github.com/synapse-ai-hub/trello-mcp.git
 cd trello-mcp
 python -m venv .venv
-# En Windows: .\.venv\Scripts\Activate.ps1
-# En Linux/macOS: source .venv/bin/activate
+# Windows: .\.venv\Scripts\Activate.ps1
+# Linux/macOS: source .venv/bin/activate
 pip install -e ".[dev]"
+pytest
 ```
 
 ---
@@ -108,24 +109,7 @@ pip install -e ".[dev]"
 
 ### Cursor / Claude Desktop / Claude Code
 
-Configurá el servidor MCP en tu cliente. Ejemplo para `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "trello": {
-      "command": "uvx",
-      "args": ["trello-mcp"],
-      "env": {
-        "TRELLO_API_KEY": "tu-api-key",
-        "TRELLO_TOKEN": "tu-token"
-      }
-    }
-  }
-}
-```
-
-Si instalaste con pip en un entorno virtual, podés usar:
+En la configuración MCP del cliente (por ejemplo `.mcp.json`), apuntá al mismo Python donde instalaste el paquete:
 
 ```json
 {
@@ -142,47 +126,29 @@ Si instalaste con pip en un entorno virtual, podés usar:
 }
 ```
 
+Si usás un venv dedicado para el MCP, indicá la ruta completa al intérprete:
+
+```json
+"command": "C:/ruta/al/venv/Scripts/python.exe"
+```
+
 ---
 
 ## Conflictos de dependencias (FastAPI / Starlette)
 
-El paquete **mcp** (que usa este servidor) depende de **Starlette** y **sse-starlette**. Si en el mismo proyecto tenés **FastAPI**, pip puede instalar versiones de Starlette que choquen entre sí y romper el entorno.
+Este servidor depende de **Starlette** y **sse-starlette**. Si en el mismo venv tenés **FastAPI**, pueden generarse conflictos de versiones.
 
-**Recomendación:** no instales trello-mcp en el mismo venv que tu app FastAPI. Usá uno de estos dos enfoques:
+**Recomendación:** usar un venv dedicado para el MCP e indicar en el IDE la ruta a ese intérprete.
 
-### Opción A: uvx (entorno aislado, sin tocar tu venv)
-
-No instalás nada en tu proyecto. Cursor/IDE ejecuta el MCP con `uvx`, que usa su propio entorno:
-
-```json
-{
-  "mcpServers": {
-    "trello": {
-      "command": "uvx",
-      "args": ["trello-mcp"],
-      "env": {
-        "TRELLO_API_KEY": "tu-api-key",
-        "TRELLO_TOKEN": "tu-token"
-      }
-    }
-  }
-}
-```
-
-### Opción B: Entorno separado y apuntar el IDE a ese Python
-
-Creás un venv solo para el MCP (o usás el Python global) e instalás ahí. En la config del IDE indicás la ruta a **ese** intérprete:
-
-**1. Instalación en un venv dedicado (ej. en tu home o en otra carpeta):**
+**1. Crear venv e instalar:**
 
 ```bash
-# Ejemplo: venv solo para MCP
 python -m venv C:\tools\mcp-venv
 C:\tools\mcp-venv\Scripts\Activate.ps1
-pip install trello-mcp
+pip install "git+https://github.com/synapse-ai-hub/trello-mcp.git"
 ```
 
-**2. Configuración en Cursor / VS Code** (`.mcp.json` o configuración MCP del IDE): usá como comando la ruta al `python` de ese venv y `-m trello_mcp`:
+**2. En Cursor / VS Code** (`.mcp.json`), usar la ruta a ese Python:
 
 ```json
 {
@@ -255,4 +221,4 @@ Este proyecto está bajo la licencia [MIT](./LICENSE).
 
 ## Sobre este repositorio
 
-Mantenido por [Synapse](https://github.com/synapse-ai-hub). Licencia: [MIT](./LICENSE).
+Mantenido por [Synapse](https://github.com/synapse-ai-hub). Basado en [stucchi/trello-mcp](https://github.com/stucchi/trello-mcp).  
