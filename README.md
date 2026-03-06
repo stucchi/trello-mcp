@@ -221,4 +221,4 @@ Este proyecto está bajo la licencia [MIT](./LICENSE).
 
 ## Sobre este repositorio
 
-Mantenido por [Synapse](https://github.com/synapse-ai-hub). Basado en [stucchi/trello-mcp](https://github.com/stucchi/trello-mcp).  
+Mantenido por [Synapse](https://github.com/synapse-ai-hub). 
