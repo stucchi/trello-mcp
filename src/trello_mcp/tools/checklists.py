@@ -3,6 +3,29 @@ from typing import Any
 from trello_mcp.client import TrelloClient
 
 
+async def get_card_checklists(card_id: str) -> list[dict[str, Any]]:
+    """Return all checklists on a card."""
+    client = TrelloClient()
+    data = await client.get(f"/cards/{card_id}/checklists")
+    return [
+        {
+            "id": cl["id"],
+            "name": cl["name"],
+            "card_id": cl.get("idCard", ""),
+            "items": [
+                {
+                    "id": item["id"],
+                    "name": item["name"],
+                    "state": item["state"],
+                    "position": item.get("pos"),
+                }
+                for item in cl.get("checkItems", [])
+            ],
+        }
+        for cl in data
+    ]
+
+
 async def get_checklist(checklist_id: str) -> dict[str, Any]:
     """Return a checklist with its items."""
     client = TrelloClient()

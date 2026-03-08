@@ -320,6 +320,18 @@ async def create_label(
 
 
 @mcp.tool()
+async def get_card_checklists(
+    card_id: Annotated[str, "The ID of the card"],
+) -> types.CallToolResult:
+    """Get all checklists on a Trello card."""
+    try:
+        result = await checklists.get_card_checklists(card_id)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
 async def get_checklist(
     checklist_id: Annotated[str, "The ID of the checklist"],
 ) -> types.CallToolResult:
