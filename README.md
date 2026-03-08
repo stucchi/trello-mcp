@@ -30,6 +30,7 @@ An MCP server for the Trello REST API. Manage boards, lists, cards, labels, chec
 | `delete_card_attachment` | Delete an attachment from a card |
 | `get_board_labels` | Get all labels on a board |
 | `create_label` | Create a label on a board |
+| `get_card_checklists` | Get all checklists on a card |
 | `get_checklist` | Get a checklist and its items |
 | `create_checklist` | Create a checklist on a card |
 | `add_checklist_item` | Add an item to a checklist |
