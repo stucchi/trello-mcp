@@ -149,3 +149,37 @@ async def add_card_comment(card_id: str, text: str) -> dict[str, Any]:
         f"/cards/{card_id}/actions/comments", params={"text": text}
     )
     return _format_comment(action)
+
+
+def _format_action(action: dict[str, Any]) -> dict[str, Any]:
+    data = action.get("data", {})
+    result: dict[str, Any] = {
+        "id": action["id"],
+        "type": action.get("type", ""),
+        "date": action.get("date", ""),
+        "member": action.get("memberCreator", {}).get("fullName", ""),
+        "username": action.get("memberCreator", {}).get("username", ""),
+    }
+    if "listBefore" in data:
+        result["list_before"] = data["listBefore"].get("name", "")
+    if "listAfter" in data:
+        result["list_after"] = data["listAfter"].get("name", "")
+    if "text" in data:
+        result["text"] = data["text"]
+    if "old" in data:
+        result["old"] = data["old"]
+    return result
+
+
+async def get_card_history(
+    card_id: str,
+    filter: str = "all",
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    """Return the action history of a card."""
+    client = TrelloClient()
+    actions = await client.get(
+        f"/cards/{card_id}/actions",
+        params={"filter": filter, "limit": str(limit)},
+    )
+    return [_format_action(a) for a in actions]

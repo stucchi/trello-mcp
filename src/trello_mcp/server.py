@@ -228,6 +228,20 @@ async def add_card_comment(
         return _error(exc)
 
 
+@mcp.tool()
+async def get_card_history(
+    card_id: Annotated[str, "The ID of the card"],
+    filter: Annotated[str, "Action type filter (e.g. all, updateCard, commentCard, addMemberToCard, removeMemberFromCard, addLabelToCard, removeLabelFromCard, addAttachmentToCard)"] = "all",
+    limit: Annotated[int, "Maximum number of actions to return"] = 50,
+) -> types.CallToolResult:
+    """Get the action history of a Trello card (moves, edits, comments, etc.)."""
+    try:
+        result = await cards.get_card_history(card_id, filter, limit)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
 # ── Attachments ─────────────────────────────────────────────────────────────
 
 
