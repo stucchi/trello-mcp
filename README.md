@@ -36,6 +36,7 @@ An MCP server for the Trello REST API. Manage boards, lists, cards, labels, chec
 | `add_checklist_item` | Add an item to a checklist |
 | `get_me` | Get the authenticated member's profile |
 | `search_trello` | Search for cards and/or boards |
+| `get_card_history` | Get the action history of a card (moves, edits, comments, etc.) |
 
 ## Prerequisites
 
