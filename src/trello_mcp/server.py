@@ -44,6 +44,20 @@ async def list_my_boards() -> types.CallToolResult:
 
 
 @mcp.tool()
+async def create_board(
+    name: Annotated[str, "Name for the new board"],
+    description: Annotated[str, "Board description"] = "",
+    default_lists: Annotated[bool, "Create default lists (To Do, Doing, Done)"] = True,
+) -> types.CallToolResult:
+    """Create a new Trello board."""
+    try:
+        result = await boards.create_board(name, description, default_lists)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
 async def get_board(
     board_id: Annotated[str, "The ID of the board"],
 ) -> types.CallToolResult:
