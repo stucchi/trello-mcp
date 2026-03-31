@@ -58,6 +58,18 @@ async def create_board(
 
 
 @mcp.tool()
+async def delete_board(
+    board_id: Annotated[str, "The ID of the board to delete"],
+) -> types.CallToolResult:
+    """Permanently delete a Trello board. This cannot be undone."""
+    try:
+        result = await boards.delete_board(board_id)
+        return _ok(result)
+    except TrelloError as exc:
+        return _error(exc)
+
+
+@mcp.tool()
 async def get_board(
     board_id: Annotated[str, "The ID of the board"],
 ) -> types.CallToolResult:

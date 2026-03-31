@@ -39,6 +39,13 @@ async def create_board(
     }
 
 
+async def delete_board(board_id: str) -> dict[str, Any]:
+    """Delete a Trello board permanently."""
+    client = TrelloClient()
+    await client.delete(f"/boards/{board_id}")
+    return {"deleted": True, "board_id": board_id}
+
+
 async def get_board(board_id: str) -> dict[str, Any]:
     """Return details of a single board."""
     client = TrelloClient()
